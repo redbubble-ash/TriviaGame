@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    //hide element
 
     // list of questions
 
@@ -60,12 +61,12 @@ $(document).ready(function () {
 
 
 
-    // time remianing
-    //show questions
+    // time remianing, timer
+    //show questions, append html, new div, hide correct answers
     //show options
-    //click an answer
-    //answer
-    //summary, timer, correct#, incorrect#, unanswered & start over (reset button)
+    //click an answer, click function
+    //show correct answer, apped html, new div, hide questions
+    //time out, display summary, timer, correct#, incorrect#, unanswered & start over (reset button)
 
 
 })
