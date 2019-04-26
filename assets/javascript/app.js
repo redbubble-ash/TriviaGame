@@ -63,10 +63,39 @@ $(document).ready(function () {
 
     // time remianing, timer
     //show questions, append html, new div, hide correct answers
+    $("#questions").text(triviaGame[0].question);
+    var multiChoices = triviaGame[0].answer;
+    $(".choices, div").each(function(index){
+
+       $(this).append(multiChoices[index]);
+    })
+
+
+    // for (var j=0; j<multiChoices.length;j++){
+    //     $("#choices,li").text(multiChoices[j]);
+        
+    // }
+
+
+
+
+    
     //show options
     //click an answer, click function
     //show correct answer, apped html, new div, hide questions
     //time out, display summary, timer, correct#, incorrect#, unanswered & start over (reset button)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 })
