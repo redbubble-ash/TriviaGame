@@ -66,7 +66,7 @@ $(document).ready(function () {
 
     $("#questions").text(triviaGame[questionNumber].question);
     var multiChoices = triviaGame[questionNumber].answer;
-    
+
     $(".choices").children("div").each(function (index) {
 
         $(this).append(multiChoices[index]);
@@ -74,12 +74,20 @@ $(document).ready(function () {
 
     // time remianing, timer
     //show questions, append html, new div, hide correct answers
-    $(".choices").children("div").on("click",function(){
-        $(".main").empty();
+    $(".choices").children("div").on("click", function () {
+        $("#questions").empty();
+        $(".choices").children("div").empty();
+        $("#questions").text(triviaGame[questionNumber].question);
+        var multiChoices = triviaGame[questionNumber].answer;
 
-       
-    
-        questionNumber ++;
+        $(".choices").children("div").each(function (index) {
+
+            $(this).append(multiChoices[index]);
+        })
+
+
+
+        questionNumber++;
     })
     // for (var j=0; j<multiChoices.length;j++){
     //     $("#choices,li").text(multiChoices[j]);
