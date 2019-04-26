@@ -23,18 +23,20 @@ $(document).ready(function () {
         image: "<iframe src=\"https://giphy.com/embed/bPShx901m0HHG\" width=\"480\" height=\"428\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/potato-dancing-bPShx901m0HHG\">via GIPHY</a></p>"
 
     },
-    {  question: "Which of the following fruits contains the most vitamin C?",
-       answer: ["Orange","Raspberry","Kiwi Fruit", "Apple"],
-       correct: "Kiwi Fruit",
-       image: "<iframe src=\"https://giphy.com/embed/G2mohnSO9SUDe\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/gifnews-artist-on-tumblr-kyle-goodrich-G2mohnSO9SUDe\">via GIPHY</a></p>"
+    {
+        question: "Which of the following fruits contains the most vitamin C?",
+        answer: ["Orange", "Raspberry", "Kiwi Fruit", "Apple"],
+        correct: "Kiwi Fruit",
+        image: "<iframe src=\"https://giphy.com/embed/G2mohnSO9SUDe\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/gifnews-artist-on-tumblr-kyle-goodrich-G2mohnSO9SUDe\">via GIPHY</a></p>"
     },
     {
-        question:"How many seeds does one strawberry have?",
-        answer: ["Around 200","Around 300","Around 150", "Around 50"],
+        question: "How many seeds does one strawberry have?",
+        answer: ["Around 200", "Around 300", "Around 150", "Around 50"],
         correct: "Around 200",
         image: "<iframe src=\"https://giphy.com/embed/k5dX3BHkIQAqWRnT1H\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/cute-food-3d-k5dX3BHkIQAqWRnT1H\">via GIPHY</a></p>"
     },
-    {   question: "Which of the following vegetables has zero fat content?",
+    {
+        question: "Which of the following vegetables has zero fat content?",
         answer: ["Onion", "Celery", "Kale", "Carrot"],
         correct: "Carrot",
         image: "<iframe src=\"https://giphy.com/embed/3otOKutrPVezw0TwLm\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/hug-bunny-carrot-3otOKutrPVezw0TwLm\">via GIPHY</a></p>"
@@ -42,15 +44,15 @@ $(document).ready(function () {
     },
     {
         question: "Growing which fruit is the largest food industry in the world?",
-        answer: ["Grape", "Tomato", "Apple", "Banana" ],
+        answer: ["Grape", "Tomato", "Apple", "Banana"],
         correct: "Grape",
-        image:"<iframe src=\"https://giphy.com/embed/LNHMgJQr8wXLi\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/foxadhd-cg-kyle-goodrich-LNHMgJQr8wXLi\">via GIPHY</a></p>"
+        image: "<iframe src=\"https://giphy.com/embed/LNHMgJQr8wXLi\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/foxadhd-cg-kyle-goodrich-LNHMgJQr8wXLi\">via GIPHY</a></p>"
     },
     {
         question: "Which of the following never go bad?",
-        answer: ["Rice","Wine","Honey","Chocolate"],
+        answer: ["Rice", "Wine", "Honey", "Chocolate"],
         correct: "Honey",
-        image:"<iframe src=\"https://giphy.com/embed/kc8PUzwL0rSqk\" width=\"461\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/kc8PUzwL0rSqk\">via GIPHY</a></p>"
+        image: "<iframe src=\"https://giphy.com/embed/kc8PUzwL0rSqk\" width=\"461\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/kc8PUzwL0rSqk\">via GIPHY</a></p>"
     },
     {
         question: "Which of the following food can be used to make diamonds?",
@@ -60,26 +62,34 @@ $(document).ready(function () {
     }]
 
 
+    var questionNumber = 0;
+
+    $("#questions").text(triviaGame[questionNumber].question);
+    var multiChoices = triviaGame[questionNumber].answer;
+    
+    $(".choices").children("div").each(function (index) {
+
+        $(this).append(multiChoices[index]);
+    })
 
     // time remianing, timer
     //show questions, append html, new div, hide correct answers
-    $("#questions").text(triviaGame[0].question);
-    var multiChoices = triviaGame[0].answer;
-    $(".choices, div").each(function(index){
+    $(".choices").children("div").on("click",function(){
+        $(".main").empty();
 
-       $(this).append(multiChoices[index]);
+       
+    
+        questionNumber ++;
     })
-
-
     // for (var j=0; j<multiChoices.length;j++){
     //     $("#choices,li").text(multiChoices[j]);
-        
+
     // }
 
 
 
 
-    
+
     //show options
     //click an answer, click function
     //show correct answer, apped html, new div, hide questions
