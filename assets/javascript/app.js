@@ -136,6 +136,12 @@ $(document).ready(function () {
         goNextQuestion;
         $("button").hide();
         questionNumber = 0;
+        $("p1").empty();
+        $("p2").empty();
+        $("p3").empty();
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+        unansweredQuestions = 0;
 
 
     }
@@ -145,7 +151,6 @@ $(document).ready(function () {
     function finalPage() {
 
         hideSecondePage();
-        count = 0;
         $(".final").show();
         $("p1").append("Correct Answers: " + correctAnswers);
         $("p2").append("Incorrect Answers: " + incorrectAnswers);
@@ -155,9 +160,11 @@ $(document).ready(function () {
     }
 
     $("p4").on("click", function () {
+        counter = setInterval(timer, 1000); 
         reset();
-        count = 30;
         goNextQuestion(); // display the first question
+        $(".final").hide();
+        
 
     })
 
