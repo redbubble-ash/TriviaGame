@@ -105,3 +105,23 @@ span{
 #result{
     color: red;
 }
+
+.final{
+    font-family: 'Special Elite', cursive;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+    color: darkgreen;
+
+}
+
+h2{
+    font-family: 'Special Elite', cursive;
+    font-weight: bold;
+
+}
+
+p4:hover{
+
+    color: gray;
+}

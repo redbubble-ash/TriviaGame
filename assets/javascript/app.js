@@ -1,13 +1,6 @@
 
 $(document).ready(function () {
-    //hide element
 
-    // list of questions
-
-    var correctAnswers = 0;
-    var incorrectAnswers = 0;
-    var unansweredQuestions = 0;
-    var timeRemaining = 15;
 
 
     var triviaGame = [{
@@ -61,6 +54,11 @@ $(document).ready(function () {
         image: "<div style=\"width:30%;height:0;padding-bottom:20%;position:relative;\"><iframe src=\"https://giphy.com/embed/Bco5Bt4kYnUcHwHdu7\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/supersimple-nuts-peanut-butter-Bco5Bt4kYnUcHwHdu7\"></a></p>"
     }]
 
+    // list of questions
+    var correctAnswers = 0;
+    var incorrectAnswers = 0;
+    var unansweredQuestions = 0;
+
 
     var questionNumber = 0;
     var count = 30;
@@ -86,7 +84,7 @@ $(document).ready(function () {
         $("#check").show();
         $("#result").show();
         $("#image").show();
-        count = 10;
+        count = 5;
         secondPageCheck = true;
         firstPageCheck = false;
 
@@ -122,7 +120,7 @@ $(document).ready(function () {
 
     function goNextQuestion() {
         // display the question
-        $("#questions").text(triviaGame[questionNumber].question);
+        $("#questions").append(triviaGame[questionNumber].question);
         // assign each choice to four "#choices div" on html
         $(".choices").children("div").each(function (index) {
             $(this).append(multiChoices()[index]);
@@ -137,16 +135,36 @@ $(document).ready(function () {
         hideSecondePage;
         goNextQuestion;
         $("button").hide();
+        questionNumber = 0;
 
 
     }
 
 
+    //time out, display summary, timer, correct#, incorrect#, unanswered & start over (reset button)
+    function finalPage() {
 
+        hideSecondePage();
+        count = 0;
+        $(".final").show();
+        $("p1").append("Correct Answers: " + correctAnswers);
+        $("p2").append("Incorrect Answers: " + incorrectAnswers);
+        $("p3").append("Unanswered: " + unansweredQuestions);
+
+
+    }
+
+    $("p4").on("click", function () {
+        reset();
+        count = 30;
+        goNextQuestion(); // display the first question
+
+    })
 
 
     // start the GAME!!!^_^
     $(".main").hide();
+    $(".final").hide();
 
     $("button").on("click", function () {
 
@@ -176,9 +194,16 @@ $(document).ready(function () {
 
         }
         else if (count === 0 && secondPageCheck === true) {
-            showFirstPage();
-            hideSecondePage();
-            goNextQuestion();
+            if (questionNumber === 8) {
+                finalPage();
+
+            }
+            else if (questionNumber < 8) {
+                showFirstPage();
+                hideSecondePage();
+                goNextQuestion();
+
+            }
 
         }
         else if (count < 0) {
@@ -214,9 +239,11 @@ $(document).ready(function () {
 
 
         questionNumber++;
+
+
+
     })
 
-    //time out, display summary, timer, correct#, incorrect#, unanswered & start over (reset button)
 
 
 
