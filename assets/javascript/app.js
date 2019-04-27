@@ -33,7 +33,7 @@ $(document).ready(function () {
         question: "Q: How many seeds does one strawberry have?",
         answer: ["Around 200", "Around 300", "Around 150", "Around 50"],
         correct: "Around 200",
-        image: "<div style=\"width:30%;height:0;padding-bottom:20%;position:relative;\"><iframe src=\"https://giphy.com/embed/k5dX3BHkIQAqWRnT1H\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/cute-food-3d-k5dX3BHkIQAqWRnT1H\">via GIPHY</a></p>"
+        image: "<div style=\"width:30%;height:0;padding-bottom:20%;position:relative;\"><iframe src=\"https://giphy.com/embed/k5dX3BHkIQAqWRnT1H\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/cute-food-3d-k5dX3BHkIQAqWRnT1H\"></a></p>"
     },
     {
         question: "Q: Which of the following vegetables has zero fat content?",
@@ -58,22 +58,37 @@ $(document).ready(function () {
         question: "Q: Which of the following food can be used to make diamonds?",
         answer: ["Peanut Butter", "Salt", "Pistachios", "Caviar"],
         correct: "Peanut Butter",
-        image: "<div style=\"width:100%;height:0;padding-bottom:56%;position:relative;\"><iframe src=\"https://giphy.com/embed/Bco5Bt4kYnUcHwHdu7\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/supersimple-nuts-peanut-butter-Bco5Bt4kYnUcHwHdu7\"></a></p>"
+        image: "<div style=\"width:30%;height:0;padding-bottom:20%;position:relative;\"><iframe src=\"https://giphy.com/embed/Bco5Bt4kYnUcHwHdu7\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/supersimple-nuts-peanut-butter-Bco5Bt4kYnUcHwHdu7\"></a></p>"
     }]
 
 
     var questionNumber = 0;
-    var multiChoices = triviaGame[questionNumber].answer;
-    var correctAnswer = triviaGame[questionNumber].correct;
-    var correctImage = triviaGame[questionNumber].image;
     var count = 30;
     var firstPageCheck = false;
     var secondPageCheck = false;
+
+    function multiChoices() {
+        return triviaGame[questionNumber].answer;
+    };
+
+    function correctAnswer() {
+        return triviaGame[questionNumber].correct;
+    }
+
+    function correctImage() {
+        return triviaGame[questionNumber].image;
+
+    }
+
+
 
     function showSecondPage() {
         $("#check").show();
         $("#result").show();
         $("#image").show();
+        count = 10;
+        secondPageCheck = true;
+        firstPageCheck = false;
 
     }
 
@@ -85,52 +100,66 @@ $(document).ready(function () {
 
     }
 
-    function showFirstPage(){
+    function showFirstPage() {
         $("#questions").show();
         $(".choices").show();
+        count = 30;
+        firstPageCheck = true;
+        secondPageCheck = false;
 
     }
 
-    function hideSecondePage(){
+    function hideSecondePage() {
         $("#check").hide();
         $("#result").hide();
         $("#image").hide();
+        $("#check").empty();
+        $("#result").empty();
+        $("#image").empty();
 
-        
+
     }
 
-    //    start the timer
+    function goNextQuestion() {
+        // display the question
+        $("#questions").text(triviaGame[questionNumber].question);
+        // assign each choice to four "#choices div" on html
+        $(".choices").children("div").each(function (index) {
+            $(this).append(multiChoices()[index]);
+
+        })
+
+    }
+
+    function reset() {
+        showFirstPage();
+        goNextQuestion;
+
+
+    }
+
+    //    start the timer for 30 second
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+    $("span").html("Time Remaining: " + count + " Seconds");
     firstPageCheck = true;
 
-    // set time countdown for 30 seconds
+
     function timer() {
         count = count - 1;
         if (count === 0 && firstPageCheck === true) {
-            count = 20;
             showSecondPage();
-            secondPageCheck = true;
-            firstPageCheck = false;
             $("#check").html("Out of time! &#128543;");
-            $("#result").append(correctAnswer);
-            $("#image").append(correctImage);
+            $("#result").append(correctAnswer());
+            $("#image").append(correctImage());
             hideFirstPage();
             unansweredQuestions++;
+            questionNumber++;
 
         }
         else if (count === 0 && secondPageCheck === true) {
-            count = 30;
             showFirstPage();
             hideSecondePage();
-            firstPageCheck = true;
-            secondPageCheck = false;
-            $("#questions").text(triviaGame[questionNumber].question);
-            $(".choices").children("div").each(function (index) {
-                $(this).append(multiChoices[index]);
-                questionNumber++;
-            })
-
-
+            goNextQuestion();
 
         }
         else if (count < 0) {
@@ -151,62 +180,33 @@ $(document).ready(function () {
 
 
     // display the first question
-    $("#questions").text(triviaGame[questionNumber].question);
-    // assign each choice to four "#choices div" on html
-    $(".choices").children("div").each(function (index) {
-
-        $(this).append(multiChoices[index]);
-    })
+    goNextQuestion(questionNumber);
 
     // when click on a choice
     $(".choices").children("div").on("click", function () {
         showSecondPage();
         // ** this indicates the element which is clicked on, use .text() in order to get the content of $this
         console.log($(this).text());
-        if ($(this).text() === correctAnswer) {
+        if ($(this).text() === correctAnswer()) {
             $("#check").html("Correct! &#128512;");
-            $("#result").append(correctAnswer);
+            $("#result").append(correctAnswer());
             correctAnswers++;
         }
-        else if ($(this).text() != correctAnswer) {
+        else if ($(this).text() != correctAnswer()) {
             $("#check").html("Nope! &#128540;");
-            $("#result").append(correctAnswer);
+            $("#result").append(correctAnswer());
             incorrectAnswers++;
 
         }
-        $("#image").append(correctImage);
+        $("#image").append(correctImage());
 
         // **empty first page question and choices element after $this.text()
         hideFirstPage();
 
 
-
-        // $("#questions").empty();
-        // $(".choices").children("div").empty();
-        // $("#questions").text(triviaGame[questionNumber].question);
-        // var multiChoices = triviaGame[questionNumber].answer;
-
-        // $(".choices").children("div").each(function (index) {
-
-        //     $(this).append(multiChoices[index]);
-        // })
-
-
-
         questionNumber++;
     })
-    // for (var j=0; j<multiChoices.length;j++){
-    //     $("#choices,li").text(multiChoices[j]);
 
-    // }
-
-
-
-
-
-    //show options
-    //click an answer, click function
-    //show correct answer, apped html, new div, hide questions
     //time out, display summary, timer, correct#, incorrect#, unanswered & start over (reset button)
 
 
