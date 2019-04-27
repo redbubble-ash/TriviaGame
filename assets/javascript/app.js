@@ -14,7 +14,7 @@ $(document).ready(function () {
         question: "What is the most popular fruit in the world?",
         answer: ["Banana", "Apple", "Tomato", "Watermelon"],
         correct: "Tomato",
-        image: "<iframe src=\"https://giphy.com/embed/1zi2SFsjUwzB0at4h1\" width=\"480\" height=\"480\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe><p><a href=\"https://giphy.com/gifs/subway-sverige-funny-cute-1zi2SFsjUwzB0at4h1\">via GIPHY</a></p>"
+        image: "<div style=\"width:30%;height:0;padding-bottom:20%;position:relative;\"><iframe src=\"https://giphy.com/embed/1zi2SFsjUwzB0at4h1\" width=\"100%\" height=\"100%\" style=\"position:absolute\" frameBorder=\"0\" class=\"giphy-embed\" allowFullScreen></iframe></div><p><a href=\"https://giphy.com/gifs/subway-sverige-funny-cute-\"></a></p>"
     },
     {
         question: "Which vegetable was the first to be grown in space?",
@@ -63,27 +63,53 @@ $(document).ready(function () {
 
 
     var questionNumber = 0;
+    var multiChoices = triviaGame[questionNumber].answer;
+    var correctAnswer = triviaGame[questionNumber].correct;
+    var correctImage = triviaGame[questionNumber].image;
+
+    $("#check").hide();
+    $("#result").hide();
+    $("#image").hide();
 
     $("#questions").text(triviaGame[questionNumber].question);
-    var multiChoices = triviaGame[questionNumber].answer;
 
     $(".choices").children("div").each(function (index) {
 
         $(this).append(multiChoices[index]);
     })
 
-    // time remianing, timer
-    //show questions, append html, new div, hide correct answers
+
     $(".choices").children("div").on("click", function () {
-        $("#questions").empty();
+        $("#check").show();
+        $("#result").show();
+        $("#image").show();
+        console.log ($(this).text());
+        if ($(this).text() === correctAnswer) {
+            $("#check").html("Correct! &#128512;");
+            $("#result").append(correctAnswer);
+        }
+        else if ($(this).text() != correctAnswer) {
+            $("#check").html("Nope! &#128540;");
+            $("#result").append(correctAnswer);
+
+        }
+        $("#image").append(correctImage);
+     
         $(".choices").children("div").empty();
-        $("#questions").text(triviaGame[questionNumber].question);
-        var multiChoices = triviaGame[questionNumber].answer;
+        $("#questions").hide();
+        $(".choices").hide();
 
-        $(".choices").children("div").each(function (index) {
 
-            $(this).append(multiChoices[index]);
-        })
+
+        // $("#questions").empty();
+        // $(".choices").children("div").empty();
+        // $("#questions").text(triviaGame[questionNumber].question);
+        // var multiChoices = triviaGame[questionNumber].answer;
+
+        // $(".choices").children("div").each(function (index) {
+
+        //     $(this).append(multiChoices[index]);
+        // })
 
 
 
