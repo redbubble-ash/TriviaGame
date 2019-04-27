@@ -42,6 +42,20 @@ section{
   
 }
 
+button{
+    background-color: pink;
+    font-family: 'Special Elite', cursive;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    width: 300px;
+    height: 100px;;
+
+
+}
+
+
+
 p{
     font-family: 'Special Elite', cursive;
     font-weight: bold;

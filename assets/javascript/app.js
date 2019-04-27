@@ -132,11 +132,30 @@ $(document).ready(function () {
     }
 
     function reset() {
+        $(".main").show();
         showFirstPage();
+        hideSecondePage;
         goNextQuestion;
+        $("button").hide();
 
 
     }
+
+
+
+
+
+    // start the GAME!!!^_^
+    $(".main").hide();
+
+    $("button").on("click", function () {
+
+        reset();
+        count = 30;
+        goNextQuestion(); // display the first question
+
+    })
+
 
     //    start the timer for 30 second
     var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
@@ -149,7 +168,7 @@ $(document).ready(function () {
         if (count === 0 && firstPageCheck === true) {
             showSecondPage();
             $("#check").html("Out of time! &#128543;");
-            $("#result").append(correctAnswer());
+            $("#result").append("The correct answer is: " + correctAnswer());
             $("#image").append(correctImage());
             hideFirstPage();
             unansweredQuestions++;
@@ -171,16 +190,6 @@ $(document).ready(function () {
     }
 
 
-    $("#check").hide();
-    $("#result").hide();
-    $("#image").hide();
-
-
-
-
-
-    // display the first question
-    goNextQuestion(questionNumber);
 
     // when click on a choice
     $(".choices").children("div").on("click", function () {
@@ -189,12 +198,12 @@ $(document).ready(function () {
         console.log($(this).text());
         if ($(this).text() === correctAnswer()) {
             $("#check").html("Correct! &#128512;");
-            $("#result").append(correctAnswer());
+            $("#result").append("The correct answer is: " + correctAnswer());
             correctAnswers++;
         }
         else if ($(this).text() != correctAnswer()) {
             $("#check").html("Nope! &#128540;");
-            $("#result").append(correctAnswer());
+            $("#result").append("The correct answer is: " + correctAnswer());
             incorrectAnswers++;
 
         }
