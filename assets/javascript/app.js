@@ -66,10 +66,27 @@ $(document).ready(function () {
     var multiChoices = triviaGame[questionNumber].answer;
     var correctAnswer = triviaGame[questionNumber].correct;
     var correctImage = triviaGame[questionNumber].image;
+    var count = 30;
+
+    var counter = setInterval(timer, 1000); //1000 will  run it every 1 second
+   
+    // set time countdown for 30 seconds
+    function timer() {
+        count = count - 1;
+        if (count <= 0) {
+            clearInterval(counter);
+            return;
+        }
+
+       $("span").html("Time Remaining: "+count+" Seconds")
+    }
+
 
     $("#check").hide();
     $("#result").hide();
     $("#image").hide();
+    
+    timer();
 
     // display the first question
     $("#questions").text(triviaGame[questionNumber].question);
@@ -84,8 +101,8 @@ $(document).ready(function () {
         $("#check").show();
         $("#result").show();
         $("#image").show();
-    // ** this indicates the element which is clicked on, use .text() in order to get the content of $this
-        console.log ($(this).text());
+        // ** this indicates the element which is clicked on, use .text() in order to get the content of $this
+        console.log($(this).text());
         if ($(this).text() === correctAnswer) {
             $("#check").html("Correct! &#128512;");
             $("#result").append(correctAnswer);
